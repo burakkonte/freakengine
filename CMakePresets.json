@@ -1,0 +1,85 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 28,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "description": "Full debug, no optimization, all asserts, Tracy enabled",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "FREAK_ENABLE_TRACY": "ON",
+                "FREAK_ENABLE_ASSERTS": "ON",
+                "FREAK_ENABLE_IMGUI": "ON"
+            }
+        },
+        {
+            "name": "develop",
+            "displayName": "Develop",
+            "description": "Moderate optimization, asserts on, Tracy on. Daily driver.",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "FREAK_ENABLE_TRACY": "ON",
+                "FREAK_ENABLE_ASSERTS": "ON",
+                "FREAK_ENABLE_IMGUI": "ON"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "description": "Full optimization, no asserts, no Tracy. Shipping candidate.",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "FREAK_ENABLE_TRACY": "OFF",
+                "FREAK_ENABLE_ASSERTS": "OFF",
+                "FREAK_ENABLE_IMGUI": "OFF"
+            }
+        },
+        {
+            "name": "profile",
+            "displayName": "Profile",
+            "description": "Release optimization with Tracy enabled for profiling.",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "FREAK_ENABLE_TRACY": "ON",
+                "FREAK_ENABLE_ASSERTS": "OFF",
+                "FREAK_ENABLE_IMGUI": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug"
+        },
+        {
+            "name": "develop",
+            "configurePreset": "develop"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
+        },
+        {
+            "name": "profile",
+            "configurePreset": "profile"
+        }
+    ]
+}

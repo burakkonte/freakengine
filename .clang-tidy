@@ -1,0 +1,33 @@
+# Freak Engine - clang-tidy configuration
+# Focused on catching real bugs, not style nitpicks.
+
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  clang-analyzer-*,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-slicing,
+  misc-misplaced-const,
+  misc-redundant-expression,
+  misc-unused-using-decls,
+  modernize-use-auto,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-using,
+  performance-*,
+  readability-braces-around-statements,
+  readability-const-return-type,
+  readability-container-size-empty,
+  readability-misleading-indentation,
+  readability-redundant-smartptr-get,
+
+WarningsAsErrors: >
+  bugprone-use-after-move,
+  bugprone-dangling-handle,
+
+HeaderFilterRegex: 'freak/.*'
+
+CheckOptions:
+  - key: modernize-use-auto.MinTypeNameLength
+    value: 5

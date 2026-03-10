@@ -1,0 +1,30 @@
+# Build outputs
+build/
+out/
+cmake-build-*/
+
+# IDE
+.vs/
+.vscode/settings.json
+.idea/
+*.suo
+*.user
+*.sln
+*.vcxproj*
+
+# Compiled shaders (regenerated from source)
+shaders/compiled/
+
+# Cooked assets (regenerated from raw)
+content/cooked/
+
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Tracy captures
+*.tracy
+
+# Package manager
+vcpkg_installed/

@@ -1,0 +1,112 @@
+{
+    "name": "test_scene",
+    "fog": {
+        "color": [0.05, 0.02, 0.08],
+        "density": 0.04,
+        "start": 5.0,
+        "end": 80.0
+    },
+    "sun": {
+        "direction": [-0.3, -0.7, -0.5],
+        "color": [0.6, 0.65, 0.9],
+        "intensity": 0.8,
+        "ambient": [0.03, 0.02, 0.05]
+    },
+    "entities": [
+        {
+            "name": "ground",
+            "mesh": "plane",
+            "position": [0, 0, 0],
+            "scale": [100, 1, 100],
+            "material": { "diffuse": [0.12, 0.10, 0.08] }
+        },
+        {
+            "name": "building_A",
+            "mesh": "cube",
+            "position": [0, 3, -15],
+            "scale": [6, 6, 6],
+            "material": { "diffuse": [0.18, 0.15, 0.2] }
+        },
+        {
+            "name": "pillar_left",
+            "mesh": "cylinder",
+            "position": [-4, 2, -8],
+            "scale": [0.5, 4, 0.5],
+            "material": { "diffuse": [0.25, 0.2, 0.22] }
+        },
+        {
+            "name": "pillar_right",
+            "mesh": "cylinder",
+            "position": [4, 2, -8],
+            "scale": [0.5, 4, 0.5],
+            "material": { "diffuse": [0.25, 0.2, 0.22] }
+        },
+        {
+            "name": "red_glow_cube",
+            "mesh": "cube",
+            "position": [-8, 1.0, -12],
+            "rotation": [0, 30, 0],
+            "scale": [2, 2, 2],
+            "material": {
+                "diffuse": [0.35, 0.08, 0.08],
+                "emissive": [0.4, 0.02, 0.02]
+            }
+        },
+        {
+            "name": "green_signal",
+            "mesh": "cube",
+            "position": [10, 0.5, -20],
+            "scale": [1, 1, 1],
+            "material": {
+                "diffuse": [0.08, 0.2, 0.08],
+                "emissive": [0.0, 0.5, 0.05]
+            }
+        },
+        {
+            "name": "distant_monolith",
+            "mesh": "cube",
+            "position": [0, 8, -50],
+            "scale": [3, 16, 1],
+            "material": { "diffuse": [0.1, 0.08, 0.12] }
+        },
+        {
+            "name": "low_wall",
+            "mesh": "cube",
+            "position": [15, 0.75, -10],
+            "scale": [12, 1.5, 0.5],
+            "material": { "diffuse": [0.15, 0.13, 0.11] }
+        },
+        {
+            "name": "crate_1",
+            "mesh": "cube",
+            "position": [-3, 0.5, -5],
+            "rotation": [0, 12, 0],
+            "material": { "diffuse": [0.3, 0.22, 0.12] }
+        },
+        {
+            "name": "crate_2",
+            "mesh": "cube",
+            "position": [-2.2, 0.5, -4.3],
+            "rotation": [0, -8, 0],
+            "material": { "diffuse": [0.28, 0.2, 0.11] }
+        },
+        {
+            "name": "crate_stacked",
+            "mesh": "cube",
+            "position": [-2.6, 1.5, -4.7],
+            "rotation": [0, 22, 5],
+            "scale": [0.8, 0.8, 0.8],
+            "material": { "diffuse": [0.32, 0.24, 0.14] }
+        },
+        {
+            "name": "eerie_pillar_far",
+            "mesh": "cylinder",
+            "position": [-20, 5, -40],
+            "scale": [1.5, 10, 1.5],
+            "material": {
+                "diffuse": [0.1, 0.08, 0.15],
+                "emissive": [0.05, 0.0, 0.1]
+            }
+        }
+    ]
+}
