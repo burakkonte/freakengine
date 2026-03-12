@@ -8,14 +8,13 @@
 // ─────────────────────────────────────────────
 
 #include <freak/core/Types.h>
+#include <freak/render/CameraData.h>
 #include <freak/scene/SceneLighting.h>
 #include <bgfx/bgfx.h>
-
-namespace entt { class registry; }
+#include <entt/entt.hpp>
 
 namespace freak {
 
-class DebugCamera;
 class MeshCache;
 
 class ForwardPass {
@@ -27,12 +26,12 @@ public:
     void Shutdown();
 
     // Render all entities with MeshComponent + MaterialComponent + TransformComponent.
-    // camera: provides view/proj matrices and position
+    // camera: view/proj matrices and world position
     // registry: scene entities to render
     // meshCache: resolves MeshID to GPU buffers
     // lighting: scene-wide light and fog parameters
     void Execute(
-        const DebugCamera& camera,
+        const CameraData& camera,
         const entt::registry& registry,
         const MeshCache& meshCache,
         const SceneLighting& lighting

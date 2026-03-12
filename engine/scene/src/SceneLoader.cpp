@@ -128,6 +128,25 @@ static u32 ParseEntities(
             registry.emplace<NameComponent>(entity, name);
         }
 
+        // ── Collider (optional, M2A) ──
+        // "collider": [hx, hy, hz]  — half-extents for AABB
+        if (ent.contains("collider")) {
+            ColliderComponent collider;
+            collider.halfExtents = ReadVec3(ent["collider"], collider.halfExtents);
+            registry.emplace<ColliderComponent>(entity, collider);
+        }
+
+        // ── Interactable (optional, M2A) ──
+        // "interactable": "Examine"  — label shown on crosshair hover
+        if (ent.contains("interactable") && ent["interactable"].is_string()) {
+            InteractableComponent interact;
+            std::string lbl = ent["interactable"].get<std::string>();
+            usize len = lbl.size() < 63 ? lbl.size() : 63;
+            std::memcpy(interact.label, lbl.c_str(), len);
+            interact.label[len] = '\0';
+            registry.emplace<InteractableComponent>(entity, interact);
+        }
+
         count++;
     }
 
@@ -147,7 +166,7 @@ Result<SceneLoadResult> LoadScene(
 
     FREAK_LOG_INFO("Scene", "Loading scene: {}", path);
 
-    std::ifstream file(std::string(path));
+    std::ifstream file{std::string{path}};
     if (!file.is_open()) {
         FREAK_LOG_ERROR("Scene", "Failed to open scene file: {}", path);
         return std::unexpected(Error::FileNotFound);

@@ -21,6 +21,21 @@ set(BGFX_INSTALL        OFF CACHE BOOL "" FORCE)
 set(BGFX_CUSTOM_TARGETS OFF CACHE BOOL "" FORCE)
 add_subdirectory(bgfx.cmake EXCLUDE_FROM_ALL)
 
+# bgfx/bx/bimg: strip /WX that leaks from root scope and suppress
+# C4324 (struct padded due to alignment specifier) in bx headers
+if(MSVC)
+    foreach(_bgfx_target bx bimg bgfx)
+        if(TARGET ${_bgfx_target})
+            get_target_property(_opts ${_bgfx_target} COMPILE_OPTIONS)
+            if(_opts)
+                list(REMOVE_ITEM _opts "/WX" "/W4" "/permissive-")
+                set_target_properties(${_bgfx_target} PROPERTIES COMPILE_OPTIONS "${_opts}")
+            endif()
+            target_compile_options(${_bgfx_target} PRIVATE /W3 /wd4324 /wd4996)
+        endif()
+    endforeach()
+endif()
+
 # ── EnTT ──────────────────────────────────────
 # Header-only. Just needs the include path.
 add_library(EnTT INTERFACE)

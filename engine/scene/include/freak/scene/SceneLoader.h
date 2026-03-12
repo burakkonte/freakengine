@@ -15,9 +15,8 @@
 #include <freak/scene/MeshTypes.h>
 #include <freak/scene/SceneLighting.h>
 
+#include <entt/entt.hpp>
 #include <functional>
-
-namespace entt { class registry; }
 
 namespace freak {
 

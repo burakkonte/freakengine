@@ -11,6 +11,7 @@
 // ─────────────────────────────────────────────
 
 #include <freak/core/Types.h>
+#include <freak/render/CameraData.h>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
@@ -37,6 +38,9 @@ public:
     // Access matrices for rendering
     [[nodiscard]] const glm::mat4& ViewMatrix() const { return m_view; }
     [[nodiscard]] const glm::mat4& ProjMatrix() const { return m_proj; }
+
+    /// Produce a CameraData snapshot for the renderer.
+    [[nodiscard]] CameraData GetCameraData() const;
 
     // Read camera state (for debug UI display)
     [[nodiscard]] const glm::vec3& Position() const { return m_state.position; }

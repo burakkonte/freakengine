@@ -1,4 +1,5 @@
 #include <freak/render/Camera.h>
+#include <freak/render/CameraData.h>
 #include <freak/platform/Input.h>
 #include <freak/core/Profiler.h>
 
@@ -30,8 +31,8 @@ void DebugCamera::Update(const Input& input, f64 deltaTime) {
         f32 dx = input.MouseDeltaX() * m_sensitivity;
         f32 dy = input.MouseDeltaY() * m_sensitivity;
 
-        m_state.yaw   += dx;
-        m_state.pitch -= dy; // Inverted: mouse up = look up
+        m_state.yaw   -= dx;  // LH: negate for correct screen-space rotation
+        m_state.pitch -= dy;  // Mouse up = look up
 
         // Clamp pitch to prevent gimbal flip
         m_state.pitch = std::clamp(m_state.pitch, -89.0f, 89.0f);
@@ -123,14 +124,14 @@ void DebugCamera::UpdateVectors() {
     m_forward.z = std::sin(yawRad) * std::cos(pitchRad);
     m_forward = glm::normalize(m_forward);
 
-    // World up is always Y
+    // World up is always Y — LH cross product order
     constexpr glm::vec3 worldUp{0.0f, 1.0f, 0.0f};
-    m_right = glm::normalize(glm::cross(m_forward, worldUp));
-    m_up    = glm::normalize(glm::cross(m_right, m_forward));
+    m_right = glm::normalize(glm::cross(worldUp, m_forward));
+    m_up    = glm::normalize(glm::cross(m_forward, m_right));
 }
 
 void DebugCamera::UpdateViewMatrix() {
-    m_view = glm::lookAt(m_state.position, m_state.position + m_forward, m_up);
+    m_view = glm::lookAtLH(m_state.position, m_state.position + m_forward, m_up);
 }
 
 void DebugCamera::UpdateProjMatrix() {
@@ -143,6 +144,10 @@ void DebugCamera::UpdateProjMatrix() {
         m_nearClip,
         m_farClip
     );
+}
+
+CameraData DebugCamera::GetCameraData() const {
+    return { m_view, m_proj, m_state.position };
 }
 
 } // namespace freak

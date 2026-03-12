@@ -25,21 +25,24 @@
             "mesh": "cube",
             "position": [0, 3, -15],
             "scale": [6, 6, 6],
-            "material": { "diffuse": [0.18, 0.15, 0.2] }
+            "material": { "diffuse": [0.18, 0.15, 0.2] },
+            "collider": [3.0, 3.0, 3.0]
         },
         {
             "name": "pillar_left",
             "mesh": "cylinder",
             "position": [-4, 2, -8],
             "scale": [0.5, 4, 0.5],
-            "material": { "diffuse": [0.25, 0.2, 0.22] }
+            "material": { "diffuse": [0.25, 0.2, 0.22] },
+            "collider": [0.25, 2.0, 0.25]
         },
         {
             "name": "pillar_right",
             "mesh": "cylinder",
             "position": [4, 2, -8],
             "scale": [0.5, 4, 0.5],
-            "material": { "diffuse": [0.25, 0.2, 0.22] }
+            "material": { "diffuse": [0.25, 0.2, 0.22] },
+            "collider": [0.25, 2.0, 0.25]
         },
         {
             "name": "red_glow_cube",
@@ -50,7 +53,9 @@
             "material": {
                 "diffuse": [0.35, 0.08, 0.08],
                 "emissive": [0.4, 0.02, 0.02]
-            }
+            },
+            "collider": [1.0, 1.0, 1.0],
+            "interactable": "Examine"
         },
         {
             "name": "green_signal",
@@ -60,35 +65,42 @@
             "material": {
                 "diffuse": [0.08, 0.2, 0.08],
                 "emissive": [0.0, 0.5, 0.05]
-            }
+            },
+            "collider": [0.5, 0.5, 0.5],
+            "interactable": "Examine"
         },
         {
             "name": "distant_monolith",
             "mesh": "cube",
             "position": [0, 8, -50],
             "scale": [3, 16, 1],
-            "material": { "diffuse": [0.1, 0.08, 0.12] }
+            "material": { "diffuse": [0.1, 0.08, 0.12] },
+            "collider": [1.5, 8.0, 0.5]
         },
         {
             "name": "low_wall",
             "mesh": "cube",
             "position": [15, 0.75, -10],
             "scale": [12, 1.5, 0.5],
-            "material": { "diffuse": [0.15, 0.13, 0.11] }
+            "material": { "diffuse": [0.15, 0.13, 0.11] },
+            "collider": [6.0, 0.75, 0.25]
         },
         {
             "name": "crate_1",
             "mesh": "cube",
             "position": [-3, 0.5, -5],
             "rotation": [0, 12, 0],
-            "material": { "diffuse": [0.3, 0.22, 0.12] }
+            "material": { "diffuse": [0.3, 0.22, 0.12] },
+            "collider": [0.5, 0.5, 0.5],
+            "interactable": "Examine"
         },
         {
             "name": "crate_2",
             "mesh": "cube",
             "position": [-2.2, 0.5, -4.3],
             "rotation": [0, -8, 0],
-            "material": { "diffuse": [0.28, 0.2, 0.11] }
+            "material": { "diffuse": [0.28, 0.2, 0.11] },
+            "collider": [0.5, 0.5, 0.5]
         },
         {
             "name": "crate_stacked",
@@ -96,7 +108,8 @@
             "position": [-2.6, 1.5, -4.7],
             "rotation": [0, 22, 5],
             "scale": [0.8, 0.8, 0.8],
-            "material": { "diffuse": [0.32, 0.24, 0.14] }
+            "material": { "diffuse": [0.32, 0.24, 0.14] },
+            "collider": [0.4, 0.4, 0.4]
         },
         {
             "name": "eerie_pillar_far",
@@ -106,7 +119,8 @@
             "material": {
                 "diffuse": [0.1, 0.08, 0.15],
                 "emissive": [0.05, 0.0, 0.1]
-            }
+            },
+            "collider": [0.75, 5.0, 0.75]
         }
     ]
 }

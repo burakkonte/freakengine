@@ -2,6 +2,9 @@ add_library(freak_framework STATIC)
 
 target_sources(freak_framework PRIVATE
     src/Framework.cpp
+    src/InputActions.cpp
+    src/FPSController.cpp
+    src/GameplayCamera.cpp
 )
 
 target_include_directories(freak_framework PUBLIC

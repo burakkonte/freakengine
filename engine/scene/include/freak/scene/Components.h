@@ -54,4 +54,20 @@ struct NameComponent {
     char name[64] = {};
 };
 
+// ── Collider (M2A) ─────────────────────────
+// Marks an entity as a static collision body.
+// The collision world reads these at scene load
+// to build its AABB list. halfExtents defines
+// the box size in local space.
+struct ColliderComponent {
+    glm::vec3 halfExtents{0.5f, 0.5f, 0.5f};
+};
+
+// ── Interactable (M2A) ─────────────────────
+// Marks an entity as something the player can
+// interact with via crosshair raycast.
+struct InteractableComponent {
+    char label[64] = {};  // e.g. "Examine", "Open"
+};
+
 } // namespace freak

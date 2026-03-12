@@ -28,30 +28,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # ─────────────────────────────────────────────
-# Compiler warnings — strict from day one
-# ─────────────────────────────────────────────
-if(MSVC)
-    add_compile_options(
-        /W4         # High warning level
-        /WX         # Warnings as errors
-        /permissive- # Standards conformance
-        /Zc:__cplusplus # Report correct __cplusplus value
-        /utf-8      # Source and execution charset
-        /MP         # Multi-process compilation
-    )
-    # Suppress overly noisy MSVC warnings we've reviewed and accepted
-    add_compile_options(
-        /wd4201     # nameless struct/union (used in math types)
-    )
-else()
-    add_compile_options(
-        -Wall -Wextra -Wpedantic -Werror
-        -Wno-unused-parameter   # Too noisy during early development
-    )
-endif()
-
-# ─────────────────────────────────────────────
-# Global defines
+# Global defines (before third_party — Tracy
+# and ImGui need these when compiling their own
+# source)
 # ─────────────────────────────────────────────
 if(FREAK_ENABLE_TRACY)
     add_compile_definitions(TRACY_ENABLE)
@@ -73,9 +52,38 @@ elseif(UNIX AND NOT APPLE)
 endif()
 
 # ─────────────────────────────────────────────
-# Third-party dependencies
+# Third-party dependencies (BEFORE strict
+# warnings — third-party code must not be
+# compiled with /WX)
 # ─────────────────────────────────────────────
 add_subdirectory(third_party)
+
+# ─────────────────────────────────────────────
+# Compiler warnings — strict for OUR code only
+# Placed after third_party so these flags only
+# apply to engine/framework/game targets.
+# ─────────────────────────────────────────────
+if(MSVC)
+    add_compile_options(
+        /W4         # High warning level
+        /WX         # Warnings as errors
+        /permissive- # Standards conformance
+        /Zc:__cplusplus  # Report correct __cplusplus value
+        /Zc:preprocessor # Standards-conformant preprocessor (required for __VA_OPT__)
+        /utf-8      # Source and execution charset
+        /MP         # Multi-process compilation
+    )
+    # Suppress overly noisy MSVC warnings we've reviewed and accepted
+    add_compile_options(
+        /wd4201     # nameless struct/union (used in math types)
+        /wd5105     # macro expansion producing 'defined' has undefined behavior (Windows SDK noise with /Zc:preprocessor)
+    )
+else()
+    add_compile_options(
+        -Wall -Wextra -Wpedantic -Werror
+        -Wno-unused-parameter   # Too noisy during early development
+    )
+endif()
 
 # ─────────────────────────────────────────────
 # Engine modules (dependency order)
