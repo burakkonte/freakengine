@@ -83,7 +83,10 @@ bool Input::IsMouseButtonDown(u8 button) const {
 
 void Input::SetMouseCaptured(bool captured) {
     m_mouseCaptured = captured;
-    SDL_SetRelativeMouseMode(captured);
+    SDL_Window* focused = SDL_GetKeyboardFocus();
+    if (focused) {
+        SDL_SetWindowRelativeMouseMode(focused, captured);
+    }
 }
 
 } // namespace freak

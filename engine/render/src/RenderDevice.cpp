@@ -33,7 +33,11 @@ Status RenderDevice::Init(const Window& window, const RenderConfig& config) {
     pd.ndt = window.GetNativeDisplayType();
 
     bgfx::Init init;
-    init.type = static_cast<bgfx::RendererType::Enum>(config.rendererType);
+    // rendererType == 0 means auto-detect; bgfx uses RendererType::Count for that.
+    // RendererType::Noop is 0, which is NOT what we want as the default.
+    init.type = (config.rendererType == 0)
+        ? bgfx::RendererType::Count
+        : static_cast<bgfx::RendererType::Enum>(config.rendererType);
     init.resolution.width  = static_cast<u32>(m_width);
     init.resolution.height = static_cast<u32>(m_height);
     init.platformData = pd;

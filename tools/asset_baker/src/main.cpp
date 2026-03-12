@@ -7,7 +7,7 @@
 #include <freak/core/Log.h>
 #include <cstdio>
 
-int main(int argc, char* argv[]) {
+int main(int argc, [[maybe_unused]] char* argv[]) {
     freak::log::Init();
     FREAK_LOG_INFO("Baker", "Asset baker placeholder — implementation in M1");
 

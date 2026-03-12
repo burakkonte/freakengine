@@ -19,7 +19,7 @@ namespace freak::DebugUI {
 
 static bool s_initialized = false;
 
-Status Init(f32 fontSize) {
+Status Init([[maybe_unused]] f32 fontSize) {
     FREAK_PROFILE_SCOPE;
 
     IMGUI_CHECKVERSION();
@@ -36,7 +36,15 @@ Status Init(f32 fontSize) {
     style.Alpha = 0.92f;
 
     // Font will be loaded here once we have the imgui/bgfx backend wired
-    // For now ImGui uses its built-in font
+    // For now ImGui uses its built-in font.
+    // We MUST build the font atlas before the first NewFrame() call,
+    // otherwise ImGui will assert/crash.
+    unsigned char* pixels = nullptr;
+    int texW = 0, texH = 0;
+    io.Fonts->GetTexDataAsRGBA32(&pixels, &texW, &texH);
+    // Set a dummy font texture ID — rendering won't use it yet,
+    // but ImGui needs a non-null value to proceed.
+    io.Fonts->SetTexID(ImTextureID(1));
 
     s_initialized = true;
     FREAK_LOG_INFO("DebugUI", "ImGui initialized (v{})", IMGUI_VERSION);

@@ -1,5 +1,5 @@
 #include <freak/render/ForwardPass.h>
-#include <freak/render/Camera.h>
+#include <freak/render/CameraData.h>
 #include <freak/render/MeshCache.h>
 #include <freak/scene/Components.h>
 #include <freak/core/Assert.h>
@@ -97,7 +97,7 @@ void ForwardPass::Shutdown() {
 }
 
 void ForwardPass::Execute(
-    const DebugCamera& camera,
+    const CameraData& camera,
     const entt::registry& registry,
     const MeshCache& meshCache,
     const SceneLighting& lighting
@@ -106,8 +106,8 @@ void ForwardPass::Execute(
 
     // ── Set view transform (once per frame) ──────
     bgfx::setViewTransform(0,
-        glm::value_ptr(camera.ViewMatrix()),
-        glm::value_ptr(camera.ProjMatrix())
+        glm::value_ptr(camera.view),
+        glm::value_ptr(camera.proj)
     );
 
     // ── Set per-frame lighting uniforms ──────────
@@ -118,7 +118,7 @@ void ForwardPass::Execute(
     glm::vec4 ambientPacked{lighting.ambientColor, 1.0f};
     glm::vec4 fogColorPacked{lighting.fogColor, 1.0f};
     glm::vec4 fogParamsPacked{lighting.fogDensity, lighting.fogStart, lighting.fogEnd, 0.0f};
-    glm::vec4 cameraPosPacked{camera.Position(), 1.0f};
+    glm::vec4 cameraPosPacked{camera.position, 1.0f};
 
     bgfx::setUniform(m_uLightDir,     glm::value_ptr(lightDirPacked));
     bgfx::setUniform(m_uLightColor,   glm::value_ptr(lightColorPacked));

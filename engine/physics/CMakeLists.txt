@@ -2,6 +2,7 @@ add_library(freak_physics STATIC)
 
 target_sources(freak_physics PRIVATE
     src/PhysicsWorld.cpp
+    src/CollisionWorld.cpp
 )
 
 target_include_directories(freak_physics PUBLIC
@@ -11,7 +12,5 @@ target_include_directories(freak_physics PUBLIC
 target_link_libraries(freak_physics
     PUBLIC
         freak_core
+        glm::glm
 )
-
-# Jolt will be added as a dependency in M2 when collision is needed.
-# For now this module compiles as an empty stub.
